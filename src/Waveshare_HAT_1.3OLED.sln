@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KeyPinHelper", "KeyPinHelper\KeyPinHelper.shproj", "{AB47322E-C94A-4F5A-83A1-DBA0F64EC9FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waveshare_HAT_1.3OLED", "Waveshare_HAT_1.3OLED\Waveshare_HAT_1.3OLED.csproj", "{D08F341B-8095-4C91-A2EF-FC05D1A9342A}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		KeyPinHelper\KeyPinHelper.projitems*{ab47322e-c94a-4f5a-83a1-dba0f64ec9fe}*SharedItemsImports = 13
+		KeyPinHelper\KeyPinHelper.projitems*{d08f341b-8095-4c91-a2ef-fc05d1a9342a}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D08F341B-8095-4C91-A2EF-FC05D1A9342A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D08F341B-8095-4C91-A2EF-FC05D1A9342A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D08F341B-8095-4C91-A2EF-FC05D1A9342A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D08F341B-8095-4C91-A2EF-FC05D1A9342A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC7B4774-6632-4F7F-9662-1CAF4E4108DD}
+	EndGlobalSection
+EndGlobal

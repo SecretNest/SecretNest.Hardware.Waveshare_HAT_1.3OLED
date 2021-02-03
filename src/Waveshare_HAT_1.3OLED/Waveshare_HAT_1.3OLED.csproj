@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <RootNamespace>SecretNest.Hardware.Waveshare.HAT_1Point3OLED</RootNamespace>
+    <AssemblyName>SecretNest.Hardware.WaveShare.HAT_1Point3OLED</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Allen Cui</Authors>
+    <Company>SecretNest.info</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/SecretNest/SecretNest.Hardware.Waveshare_HAT_1.3OLED</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SecretNest/SecretNest.Hardware.Waveshare_HAT_1.3OLED</RepositoryUrl>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <Description>Library for Waveshare HAT with 1.3 inch OLED and keys.</Description>
+    <Copyright>Allen Cui / SecretNest.info</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SecretNest.Hardware.SinoWealth.SH1106" Version="1.0.0" />
+    <PackageReference Include="System.Device.Gpio" Version="1.3.0" />
+  </ItemGroup>
+
+  <Import Project="..\KeyPinHelper\KeyPinHelper.projitems" Label="Shared" />
+
+</Project>
