@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Device.Gpio;
-//using System.Runtime.CompilerServices;
-using System.Text;
-using SecretNest.Hardware.IO;
 using SecretNest.Hardware.SinoWealth;
 
 namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
@@ -12,18 +8,18 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
     {
         private SH1106 _oled;
         private bool _disposedValue;
-        private const int GpioReset = 25;
-        private const int GpioDc = 24;
-        private const int GpioCs = 8;
-        private const int GpioBl = 18;
-        private const int GpioKey1 = 21;
-        private const int GpioKey2 = 20;
-        private const int GpioKey3 = 16;
-        private const int GpioJoystickUp = 6;
-        private const int GpioJoystickDown = 19;
-        private const int GpioJoystickLeft = 5;
-        private const int GpioJoystickRight = 26;
-        private const int GpioJoystickPress = 13;
+        private const int Reset = 25;
+        private const int Dc = 24;
+        private const int Cs = 8;
+        private const int Bl = 18;
+        private const int Key1 = 21;
+        private const int Key2 = 20;
+        private const int Key3 = 16;
+        private const int JoystickUp = 6;
+        private const int JoystickDown = 19;
+        private const int JoystickLeft = 5;
+        private const int JoystickRight = 26;
+        private const int JoystickCenter = 13;
         private const int SpiClockFrequency = 10000000;
         private const int Width = 128;
         //private const int Height = 64;
@@ -34,54 +30,54 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
 
         private GpioController _controller;
 
-        public HatDevice(GpioController controller)
+        public HatDevice(GpioController controller, TimeSpan minimalSignalChangingFrequency)
         {
             _controller = controller;
-            controller.OpenPin(GpioBl, PinMode.Output);
-            _controller.Write(GpioBl, PinValue.High);
+            controller.OpenPin(Bl, PinMode.Output);
+            _controller.Write(Bl, PinValue.High);
 
-            _oled = new SH1106(controller, GpioReset, GpioDc, GpioCs, SpiClockFrequency);
+            _oled = new SH1106(controller, Reset, Dc, Cs, SpiClockFrequency);
 
             _keyPinHelpers = new[]
             {
-                new KeyPinHelper(controller, GpioKey1, e => GpioKey1Down?.Invoke(this, e),
-                    e => GpioKey1Up?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioKey2, e => GpioKey2Down?.Invoke(this, e),
-                    e => GpioKey2Up?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioKey3, e => GpioKey3Down?.Invoke(this, e),
-                    e => GpioKey3Up?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioJoystickUp, e => GpioJoystickUpDown?.Invoke(this, e),
-                    e => GpioJoystickUpUp?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioJoystickDown, e => GpioJoystickDownDown?.Invoke(this, e),
-                    e => GpioJoystickDownUp?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioJoystickLeft, e => GpioJoystickLeftDown?.Invoke(this, e),
-                    e => GpioJoystickLeftUp?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioJoystickRight, e => GpioJoystickRightDown?.Invoke(this, e),
-                    e => GpioJoystickRightUp?.Invoke(this, e)),
-                new KeyPinHelper(controller, GpioJoystickPress, e => GpioJoystickKeyDown?.Invoke(this, e),
-                    e => GpioJoystickKeyUp?.Invoke(this, e))
+                new KeyPinHelper(controller, Key1, KeyName.Key1, e => GpioKey1Pressed?.Invoke(this, e),
+                    e => GpioKey1Released?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, Key2, KeyName.Key2, e => GpioKey2Pressed?.Invoke(this, e),
+                    e => GpioKey2Released?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, Key3, KeyName.Key3, e => GpioKey3Pressed?.Invoke(this, e),
+                    e => GpioKey3Released?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, JoystickUp, KeyName.JoystickUp, e => GpioJoystickUpPressed?.Invoke(this, e),
+                    e => GpioJoystickUpReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, JoystickDown, KeyName.JoystickDown, e => GpioJoystickDownPressed?.Invoke(this, e),
+                    e => GpioJoystickDownReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, JoystickLeft, KeyName.JoystickLeft, e => GpioJoystickLeftPressed?.Invoke(this, e),
+                    e => GpioJoystickLeftReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, JoystickRight, KeyName.JoystickRight, e => GpioJoystickRightPressed?.Invoke(this, e),
+                    e => GpioJoystickRightReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                new KeyPinHelper(controller, JoystickCenter, KeyName.JoystickCenter, e => GpioJoystickCenterPressed?.Invoke(this, e),
+                    e => GpioJoystickCenterReleased?.Invoke(this, e), minimalSignalChangingFrequency)
             };
 
-            ones = new byte[PageSize];
+            _ones = new byte[PageSize];
             //Unsafe.InitBlock(ref ones[0], 255, PageSize);
         }
 
-        public event EventHandler<PinValueChangedEventArgs> GpioKey1Down;
-        public event EventHandler<PinValueChangedEventArgs> GpioKey1Up;
-        public event EventHandler<PinValueChangedEventArgs> GpioKey2Down;
-        public event EventHandler<PinValueChangedEventArgs> GpioKey2Up;
-        public event EventHandler<PinValueChangedEventArgs> GpioKey3Down;
-        public event EventHandler<PinValueChangedEventArgs> GpioKey3Up;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickUpDown;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickUpUp;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickDownDown;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickDownUp;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickLeftDown;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickLeftUp;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickRightDown;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickRightUp;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickKeyDown;
-        public event EventHandler<PinValueChangedEventArgs> GpioJoystickKeyUp;
+        public event EventHandler<KeyStateChangedEventArgs> GpioKey1Pressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioKey1Released;
+        public event EventHandler<KeyStateChangedEventArgs> GpioKey2Pressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioKey2Released;
+        public event EventHandler<KeyStateChangedEventArgs> GpioKey3Pressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioKey3Released;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickUpPressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickUpReleased;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickDownPressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickDownReleased;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickLeftPressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickLeftReleased;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickRightPressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickRightReleased;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickCenterPressed;
+        public event EventHandler<KeyStateChangedEventArgs> GpioJoystickCenterReleased;
 
         public void ShowImage(byte[] buffer) => ShowImage(buffer.AsSpan());
 
@@ -98,12 +94,12 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
 
         public void ShowPage(int page, ReadOnlySpan<byte> buffer) => _oled.ShowPage(page, buffer);
 
-        byte[] ones;
+        byte[] _ones;
         public void SetBlankScreen()
         {
             for (int page = 0; page < ImagePageCount; page++)
             {
-                _oled.ShowPage(page, ones);
+                _oled.ShowPage(page, _ones);
             }
         }
 
@@ -116,13 +112,13 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
                     _oled.Dispose();
                     foreach (var helper in _keyPinHelpers)
                         helper.Dispose();
-                    _controller.ClosePin(GpioBl);
+                    _controller.ClosePin(Bl);
                 }
 
                 _oled = null;
                 _keyPinHelpers = null;
                 _controller = null;
-                ones = null;
+                _ones = null;
                 _disposedValue = true;
             }
         }
