@@ -46,11 +46,9 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
         {
             if (e.Value == State.Pressed)
             {
-                if (_currentState != State.Pressed)
-                {
-                    _currentState = State.Pressed;
-                    _keyPressedCallback(new KeyStateChangedEventArgs(_keyName, KeyState.Pressed));
-                }
+                if (_currentState == State.Pressed) return;
+                _currentState = State.Pressed;
+                _keyPressedCallback(new KeyStateChangedEventArgs(_keyName, KeyState.Pressed));
             }
             else if (e.Value == State.Released)
             {
@@ -61,9 +59,7 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
                 }
                 else if (_currentState == State.Unknown)
                 {
-                    _currentState = State.Pressed;
-                    _keyPressedCallback(new KeyStateChangedEventArgs(_keyName, KeyState.Pressed));
-                    _keyReleasedCallback(new KeyStateChangedEventArgs(_keyName, KeyState.Released));
+                    _currentState = State.Released;
                 }
             }
         }
@@ -123,7 +119,7 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
             GC.SuppressFinalize(this);
         }
 
-        enum State
+        private enum State
         {
             Unknown,
             Pressed,
