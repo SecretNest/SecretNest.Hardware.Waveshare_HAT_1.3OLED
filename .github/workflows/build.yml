@@ -1,0 +1,37 @@
+name: Build using net5
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: |
+        dotnet restore src/Test -r linux-arm
+        dotnet restore src/Test -r linux-arm64
+    - name: Publish
+      run: |
+        dotnet publish src/Test -c Release -r linux-arm -o ${{env.DOTNET_ROOT}}/arm32
+        dotnet publish src/Test -c Release -r linux-arm64 -o ${{env.DOTNET_ROOT}}/arm64
+    - name: Tar
+      run: |
+        tar -czvf arm32.tar.gz -C ${{env.DOTNET_ROOT}}/arm32 ScreenTest
+        tar -czvf arm64.tar.gz -C ${{env.DOTNET_ROOT}}/arm64 ScreenTest
+    - name: Upload Arm32
+      uses: actions/upload-artifact@v2
+      with:
+        name: ScreenTest.Arm32.tar.gz
+        path: arm32.tar.gz
+    - name: Upload Arm64
+      uses: actions/upload-artifact@v2
+      with:
+        name: ScreenTest.Arm64.tar.gz
+        path: arm64.tar.gz
