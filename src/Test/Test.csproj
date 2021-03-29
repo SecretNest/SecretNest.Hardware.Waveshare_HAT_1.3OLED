@@ -10,6 +10,7 @@
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
     <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+    <AssemblyName>ScreenTest</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

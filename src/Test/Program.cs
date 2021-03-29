@@ -95,98 +95,146 @@ namespace Test
 
         private static void Key1Down(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, Key1);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, Key1);
+                Refresh();
+            }
         }
 
         private static void Key1Up(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, Key1);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, Key1);
+                Refresh();
+            }
         }
 
         private static void Key2Down(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, Key2);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, Key2);
+                Refresh();
+            }
         }
 
         private static void Key2Up(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, Key2);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, Key2);
+                Refresh();
+            }
         }
 
         private static void Key3Down(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, Key3);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, Key3);
+                Refresh();
+            }
         }
 
         private static void Key3Up(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, Key3);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, Key3);
+                Refresh();
+            }
         }
 
         private static void JoystickUpDown(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, KeyU);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, KeyU);
+                Refresh();
+            }
         }
 
         private static void JoystickUpUp(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, KeyU);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, KeyU);
+                Refresh();
+            }
         }
 
         private static void JoystickDownDown(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, KeyD);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, KeyD);
+                Refresh();
+            }
         }
 
         private static void JoystickDownUp(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, KeyD);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, KeyD);
+                Refresh();
+            }
         }
 
         private static void JoystickLeftDown(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, KeyL);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, KeyL);
+                Refresh();
+            }
         }
 
         private static void JoystickLeftUp(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, KeyL);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, KeyL);
+                Refresh();
+            }
         }
 
         private static void JoystickRightDown(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, KeyR);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, KeyR);
+                Refresh();
+            }
         }
 
         private static void JoystickRightUp(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, KeyR);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, KeyR);
+                Refresh();
+            }
         }
 
         private static void JoystickKeyDown(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.Black, KeyP);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.Black, KeyP);
+                Refresh();
+            }
         }
 
         private static void JoystickKeyUp(object sender, KeyStateChangedEventArgs e)
         {
-            _graphics.FillRectangle(Brushes.White, KeyP);
-            Refresh();
+            lock (_graphics)
+            {
+                _graphics.FillRectangle(Brushes.White, KeyP);
+                Refresh();
+            }
         }
     }
 }
