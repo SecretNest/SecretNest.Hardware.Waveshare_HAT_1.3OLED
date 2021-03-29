@@ -23,15 +23,15 @@ jobs:
         dotnet publish src/Test -c Release -r linux-arm64 -o ${{env.DOTNET_ROOT}}/arm64
     - name: Tar
       run: |
-        tar -czvf arm32.tar.gz -C ${{env.DOTNET_ROOT}}/arm32 ScreenTest
-        tar -czvf arm64.tar.gz -C ${{env.DOTNET_ROOT}}/arm64 ScreenTest
+        tar -czvf ScreenTest.Arm32.tar.gz -C ${{env.DOTNET_ROOT}}/arm32 ScreenTest
+        tar -czvf ScreenTest.Arm64.tar.gz -C ${{env.DOTNET_ROOT}}/arm64 ScreenTest
     - name: Upload Arm32
       uses: actions/upload-artifact@v2
       with:
         name: ScreenTest.Arm32.tar.gz
-        path: arm32.tar.gz
+        path: ScreenTest.Arm32.tar.gz
     - name: Upload Arm64
       uses: actions/upload-artifact@v2
       with:
         name: ScreenTest.Arm64.tar.gz
-        path: arm64.tar.gz
+        path: ScreenTest.Arm64.tar.gz
