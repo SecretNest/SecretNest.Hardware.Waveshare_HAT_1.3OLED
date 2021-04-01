@@ -1,4 +1,4 @@
-name: Build using net5
+name: Build test using net5
 
 on:
   workflow_dispatch:
