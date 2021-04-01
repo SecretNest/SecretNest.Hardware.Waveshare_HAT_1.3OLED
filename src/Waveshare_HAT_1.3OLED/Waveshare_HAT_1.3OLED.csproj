@@ -10,16 +10,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/SecretNest/SecretNest.Hardware.Waveshare_HAT_1.3OLED</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SecretNest/SecretNest.Hardware.Waveshare_HAT_1.3OLED</RepositoryUrl>
-    <PackageReleaseNotes>Update the reference of GPIO and stabilizer.
-Bug fix.
-If signal of key released is captured before the pressed, no event will be raised.</PackageReleaseNotes>
+    <PackageReleaseNotes>Stabilizer is removed. If you need the stablizer, use 1.3.0.</PackageReleaseNotes>
     <Description>Library for Waveshare HAT with 1.3 inch OLED and keys.</Description>
     <Copyright>Allen Cui / SecretNest.info</Copyright>
-    <Version>1.2.0</Version>
+    <Version>1.4.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SecretNest.Hardware.SignalStabilizer" Version="1.1.0" />
     <PackageReference Include="SecretNest.Hardware.SinoWealth.SH1106" Version="1.0.0" />
     <PackageReference Include="System.Device.Gpio" Version="1.4.0" />
   </ItemGroup>

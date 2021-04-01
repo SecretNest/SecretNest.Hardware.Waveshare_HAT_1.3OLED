@@ -30,7 +30,7 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
 
         private GpioController _controller;
 
-        public HatDevice(GpioController controller, TimeSpan minimalSignalChangingFrequency)
+        public HatDevice(GpioController controller)
         {
             _controller = controller;
             controller.OpenPin(Bl, PinMode.Output);
@@ -41,21 +41,21 @@ namespace SecretNest.Hardware.Waveshare.HAT_1Point3OLED
             _keyPinHelpers = new[]
             {
                 new KeyPinHelper(controller, Key1, KeyName.Key1, e => GpioKey1Pressed?.Invoke(this, e),
-                    e => GpioKey1Released?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioKey1Released?.Invoke(this, e)),
                 new KeyPinHelper(controller, Key2, KeyName.Key2, e => GpioKey2Pressed?.Invoke(this, e),
-                    e => GpioKey2Released?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioKey2Released?.Invoke(this, e)),
                 new KeyPinHelper(controller, Key3, KeyName.Key3, e => GpioKey3Pressed?.Invoke(this, e),
-                    e => GpioKey3Released?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioKey3Released?.Invoke(this, e)),
                 new KeyPinHelper(controller, JoystickUp, KeyName.JoystickUp, e => GpioJoystickUpPressed?.Invoke(this, e),
-                    e => GpioJoystickUpReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioJoystickUpReleased?.Invoke(this, e)),
                 new KeyPinHelper(controller, JoystickDown, KeyName.JoystickDown, e => GpioJoystickDownPressed?.Invoke(this, e),
-                    e => GpioJoystickDownReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioJoystickDownReleased?.Invoke(this, e)),
                 new KeyPinHelper(controller, JoystickLeft, KeyName.JoystickLeft, e => GpioJoystickLeftPressed?.Invoke(this, e),
-                    e => GpioJoystickLeftReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioJoystickLeftReleased?.Invoke(this, e)),
                 new KeyPinHelper(controller, JoystickRight, KeyName.JoystickRight, e => GpioJoystickRightPressed?.Invoke(this, e),
-                    e => GpioJoystickRightReleased?.Invoke(this, e), minimalSignalChangingFrequency),
+                    e => GpioJoystickRightReleased?.Invoke(this, e)),
                 new KeyPinHelper(controller, JoystickCenter, KeyName.JoystickCenter, e => GpioJoystickCenterPressed?.Invoke(this, e),
-                    e => GpioJoystickCenterReleased?.Invoke(this, e), minimalSignalChangingFrequency)
+                    e => GpioJoystickCenterReleased?.Invoke(this, e))
             };
 
             _ones = new byte[PageSize];

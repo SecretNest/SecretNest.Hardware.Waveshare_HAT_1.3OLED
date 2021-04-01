@@ -30,7 +30,7 @@ namespace Test
             _waitingToQuit = new ManualResetEventSlim(false);
             _gpioController = new GpioController();
             //_hatDevice = new HatDevice(_gpioController, TimeSpan.Zero);
-            _hatDevice = new HatDevice(_gpioController, new TimeSpan(0, 0, 0, 0, 50));
+            _hatDevice = new HatDevice(_gpioController);
             _hatDevice.SetBlankScreen();
 
             _screenImage = new Bitmap(128, 64);
